@@ -1,5 +1,5 @@
-const LEN_Y: usize = 100;
-const LEN_X: usize = 100;
+const LEN_Y: usize = 3;
+const LEN_X: usize = 2;
 
 #[derive(Clone)]
 enum Player {
@@ -35,11 +35,11 @@ struct Board {
 impl Board {
     fn new(x: usize, y: usize) -> Board {
         if (x < 3) || (y < 3) {
-            panic!("Size must be atleast 3x3")
+            panic!("Size must be at least 3x3")
         }
 
         let mut board: Vec<Vec<Field>> = vec![];
-        for _i in 0..y {
+        for _ in 0..y {
                 board.push(vec![Field::N; x])
         }
         Board{x, y, board}
@@ -159,15 +159,15 @@ fn main() {
         };
         match b.play(x, y, player.clone()) {
             Move::Valid => (),
-            Move::OutOfRange => { println!("out of range"); continue },
-            Move::AlreadyAssigned => { println!("already ocupied"); continue; }
+            Move::OutOfRange => { eprintln!("out of range"); continue },
+            Move::AlreadyAssigned => { eprintln!("already ocupied"); continue }
         }
 
         b.display();
 
         match b.calculate() {
-            Outcome::Xwin => {println!("X wins"); playing=false},
-            Outcome::Owin => {println!("O wins"); playing=false},
+            Outcome::Xwin => { println!("X wins"); playing = false },
+            Outcome::Owin => { println!("O wins"); playing = false },
             Outcome::None => ()
         }
         player = match player {
